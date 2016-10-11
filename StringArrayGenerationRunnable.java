@@ -8,25 +8,29 @@ public class StringArrayGenerationRunnable  implements Runnable{
 		
 	//declare an object of StringArrayGeneration Class
 	StringArrayGeneration mStrArrays; 
-	//operations a thread going to perform
+	//number of operations a thread is going to perform
 	public int mRepetitions; 
 	//number of thread
 	private int mThreadNum;
+	//total waiting time of a thread
 	private long mTotalWaitTime = 0;
+	//this array will store waiting time of each operation in nanoseconds
 	private long[] mWaitTimeInNano;
-	private Lock arrayLock;
+	
+	private Lock mArrayLock;
 	
 	public StringArrayGenerationRunnable(StringArrayGeneration s, int threadNum, int count) {
 		mStrArrays = s;
 		mRepetitions = count;
 		mThreadNum = threadNum;
 		mWaitTimeInNano = new long[count];
-		arrayLock = new ReentrantLock();
+		mArrayLock = new ReentrantLock();
 		
 	}
 	
 	@Override
 	public void run(){
+		
 		System.out.println("Start thread number: " + mThreadNum);
 
 		for(int i = 0; i < mRepetitions; i++){
@@ -34,12 +38,14 @@ public class StringArrayGenerationRunnable  implements Runnable{
 			int operation = getOperationNumber();
 			
 			long startTime = System.nanoTime();
-			arrayLock.lock();
+			mArrayLock.lock();
 			long endTime = System.nanoTime();
 			
 			long duration = endTime - startTime;//waiting time
+			
 			mWaitTimeInNano[i] = duration;
 			mTotalWaitTime += duration;
+			
 			System.out.println("Thread #" + mThreadNum + " with operation "  + i  + " waiting " + duration + "nanoseconds");
 			
 			try {
@@ -50,7 +56,7 @@ public class StringArrayGenerationRunnable  implements Runnable{
 				else {				
 					mStrArrays.searchAndReplace();				
 				}
-				//if a thread finish its total operations, calculate average and standard deviation
+				//if a thread finish all the operations, calculate the average and standard deviation
 				if(i == mRepetitions - 1) {
 					System.out.println("total time: " + mTotalWaitTime);
 					long average = mTotalWaitTime / mRepetitions;
@@ -63,7 +69,7 @@ public class StringArrayGenerationRunnable  implements Runnable{
 				}
 			}
 			finally{
-				arrayLock.unlock();
+				mArrayLock.unlock();
 			}
 		}		
 	}

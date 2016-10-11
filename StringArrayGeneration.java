@@ -1,19 +1,39 @@
-package lab2;
+/**
+ * Object of this class will contain a 125-length string array(pool) that its elements are randomly generated from upper case letter [A - Z]. 
+ * And another string array with 100 length that its elements are randomly chose from the pool array. Each element is contained at most 7 characters.
+ * This class also provide some functionalities with these two arrays.
+ * 
+ */
 
+
+package lab2;
 import java.util.Random;
 
 public class StringArrayGeneration {
 	
-		//declare an array with 100 strings in length
-		private String[] mPickedArray = new String[100];
-		//declare an array with 125 strings in length
-		private String[] mPool = new String[125];
+		private final int POOL_LENGTH = 125;
+		private final int PICKED_ARRAY_LENGTH = 100;
 		private static char[] UpperCaseLetters = {'A', 'B','C','D', 'E','F','G', 'H','I','J', 'K',
 			'L','M', 'N','O','P', 'Q','R','S', 'T','U','V', 'W','X','Y', 'Z',};
-	
+		
+		//declare an array with 100 strings in length
+		private String[] mPickedArray = new String[PICKED_ARRAY_LENGTH];
+		//declare an array with 125 strings in length
+		private String[] mPool = new String[POOL_LENGTH];
+		
+
+		
 		public StringArrayGeneration(){
 			generateStringPool();
 			generateStringArray();
+		}
+		
+				
+		//fill up the pool string array with combinations of randomly picked upper case letters
+		public void generateStringPool() {			
+			for(int i = 0; i < mPool.length; i++) {
+				mPool[i] = generateOneString();		
+			}	
 		}
 		
 		//fill up pickedArray with 100 Strings that are randomly picked from the pool
@@ -23,23 +43,24 @@ public class StringArrayGeneration {
 				mPickedArray[i] = mPool[index];
 			}
 		}
-				
-		//fill up the pool string array with combinations of randomly picked upper case letters
-		public void generateStringPool() {			
-			for(int i = 0; i < mPool.length; i++) {
-				mPool[i] = generateOneString();		
-			}	
+		
+		//generate a string with length from 1 - 10 from [A - Z]
+		public String generateOneString(){
+			//length will be in the range of 1 to 7
+			int length = generateRandomPosInt(7) + 1;
+			String word = "";
+			for(int i = 0; i < length; i++) {
+				//generate index from 0 - 25 
+				int index = generateRandomPosInt(26);
+				//Append a char to string
+				word = word.concat(Character.toString(UpperCaseLetters[index]));		
+			}
+			return word;		
 		}
 
-		//get a random string from the pool
-		public String getOneStringInPool () {
-			int index = generateRandomPosInt(mPool.length);
-			String s = mPool[index];
-			return s;
-		}
 		
 		//generate a random positive integer within a range input
-		public static int generateRandomPosInt (int range) {
+		public int generateRandomPosInt (int range) {
 			Random rand = new Random();
 			int randPosInt;
 			if(range > 0)
@@ -49,19 +70,13 @@ public class StringArrayGeneration {
 			return randPosInt;
 		}
 		
-		//generate a string with length from 1 - 10 from [A - Z]
-		public String generateOneString(){
-			//length will be in the range of 1 to 7
-			int length = generateRandomPosInt(7) + 1;
-			String s = "";
-			for(int i = 0; i < length; i++) {
-				//generate index from 0 - 25 
-				int index = generateRandomPosInt(26);
-				//Append a char to string
-				s = s.concat(Character.toString(UpperCaseLetters[index]));		
-			}
-			return s;		
+		//randomly choose a string from the pool
+		public String getOneStringInPool () {
+			int index = generateRandomPosInt(mPool.length);
+			String s = mPool[index];
+			return s;
 		}
+		
 
 		//count the number of occurrences of a string in an array that is randomly pick from the pool
 		public int searchAndCount () {
@@ -95,12 +110,13 @@ public class StringArrayGeneration {
 		public String[] getPickedArray() {
 			return mPickedArray;
 		}
+		
 		public String[] getPool() {
 			return mPool;
 			
 		}
 		
-		//display an array in different types
+		//display an array 
 		public static <E> void displayArray(E[] array){
 			for(int i = 0; i < array.length; i++) {
 				System.out.print( i + ": " + array[i] + "\n " );
