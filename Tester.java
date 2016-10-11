@@ -5,8 +5,7 @@ public class Tester {
 		
 	public static void main(String args[]) {
 		
-		
-		
+	
 		StringArrayGeneration arrays = new StringArrayGeneration();
 		final int REPETITIONS = 10;//500 operations
 		final int NUM_THREADS = 10;//20 threads
@@ -20,7 +19,7 @@ public class Tester {
 			t.start();
 		}
 	
-		
+		//test
 	}
 	
 
