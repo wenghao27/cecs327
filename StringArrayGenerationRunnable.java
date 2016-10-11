@@ -9,7 +9,7 @@ public class StringArrayGenerationRunnable  implements Runnable{
 	//declare an object of StringArrayGeneration Class
 	StringArrayGeneration mStrArrays; 
 	//number of operations a thread is going to perform
-	public int mRepetitions; 
+	private int mRepetitions; 
 	//number of thread
 	private int mThreadNum;
 	//total waiting time of a thread
