@@ -20,6 +20,7 @@ public class StringArrayGenerationRunnable  implements Runnable{
 	private Lock mArrayLock;
 	
 	public StringArrayGenerationRunnable(StringArrayGeneration s, int threadNum, int count) {
+		
 		mStrArrays = s;
 		mRepetitions = count;
 		mThreadNum = threadNum;
@@ -35,8 +36,7 @@ public class StringArrayGenerationRunnable  implements Runnable{
 
 		for(int i = 0; i < mRepetitions; i++){
 			
-			int operation = getOperationNumber();
-			
+			int operation = getOperationNumber();		
 			long startTime = System.nanoTime();
 			mArrayLock.lock();
 			long endTime = System.nanoTime();
