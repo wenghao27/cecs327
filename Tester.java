@@ -12,7 +12,7 @@ public class Tester {
 
 		//StringArrayGeneration.displayArray(arrays.getPool());
 		//StringArrayGeneration.displayArray(arrays.getPickedArray());
-		
+
 		for(int i = 0; i < NUM_THREADS; i++) {
 			StringArrayGenerationRunnable runArrays = new StringArrayGenerationRunnable(arrays, i, REPETITIONS);
 			Thread t = new Thread(runArrays);
@@ -21,6 +21,7 @@ public class Tester {
 
 		//test 1
 	}
+
 
 
 }
