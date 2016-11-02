@@ -1,5 +1,5 @@
-package lab2;
-
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Tester {
 
@@ -12,6 +12,7 @@ public class Tester {
 
 		//StringArrayGeneration.displayArray(arrays.getPool());
 		//StringArrayGeneration.displayArray(arrays.getPickedArray());
+		
 
 		for(int i = 0; i < NUM_THREADS; i++) {
 			StringArrayGenerationRunnable runArrays = new StringArrayGenerationRunnable(arrays, i, REPETITIONS);

@@ -6,7 +6,6 @@
  */
 
 
-package lab2;
 import java.util.Random;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -28,7 +27,7 @@ public class StringArrayGeneration {
 
 
 
-		public StringArrayGeneration(){
+		public StringArrayGeneration() {
 			generateStringPool();
 			generateStringArray();
 			generateLocks();
@@ -41,12 +40,13 @@ public class StringArrayGeneration {
 				mPool[i] = generateOneString();
 			}
 		}
-
+		
 		public void generateLocks() {
 			for(int i = 0; i < mPool.length; i++) {
 				locks[i] = new ReentrantLock(true);
 			}
 		}
+
 
 		public void lockIndex(int i) {
 			locks[i].lock();
